@@ -1,9 +1,10 @@
+import { TypingGame } from './components/TypingGame';
 import { globalStyles } from './styles/global';
 
 function App() {
   globalStyles();
 
-  return <div className='App'>Hello World!</div>;
+  return <TypingGame />;
 }
 
 export default App;
