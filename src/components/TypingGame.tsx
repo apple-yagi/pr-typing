@@ -1,6 +1,9 @@
 import { useRomajiText } from '@/hooks/useRomajiText';
+import { useTimer } from '@/hooks/useTimer';
 import { styled } from '@/stitches.config';
+import { mappingKey } from '@/utils/typing';
 import { KeyboardEvent, useState } from 'react';
+import { ScoringWindow } from './ScoringWindow';
 import { Typography } from './ui/Typography';
 
 type Props = {
@@ -9,6 +12,7 @@ type Props = {
 
 export const TypingGame = ({ text }: Props) => {
   const typingString = useRomajiText(text);
+  const { time, start, stop } = useTimer();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMisstype, setIsMisstype] = useState(false);
@@ -17,68 +21,45 @@ export const TypingGame = ({ text }: Props) => {
 
   if (!typingString) return <p>...loading</p>;
 
-  const isCoron = (key: string) =>
-    key.charCodeAt(0) === 58 &&
-    typingString[currentIndex].charCodeAt(0) === 65306;
-
-  const isNami = (key: string) =>
-    key.charCodeAt(0) === 126 &&
-    typingString[currentIndex].charCodeAt(0) === 12316;
-
-  const isKanma = (key: string) =>
-    key.charCodeAt(0) === 44 &&
-    typingString[currentIndex].charCodeAt(0) === 12289;
-
-  const isZenkakuPeriod = (key: string) =>
-    key.charCodeAt(0) === 46 &&
-    typingString[currentIndex].charCodeAt(0) === 12290;
-
-  const isZenkakuKakko = (key: string) =>
-    (key.charCodeAt(0) === 123 &&
-      typingString[currentIndex].charCodeAt(0) === 12304) ||
-    (key.charCodeAt(0) === 125 &&
-      typingString[currentIndex].charCodeAt(0) === 12305);
-
   const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Shift' || e.key === 'Eisu' || e.key === 'KanjiMode') return;
 
     if (
       e.key === typingString[currentIndex] ||
-      isCoron(e.key) ||
-      isNami(e.key) ||
-      isKanma(e.key) ||
-      isZenkakuPeriod(e.key) ||
-      isZenkakuKakko(e.key)
+      mappingKey(e.key, typingString[currentIndex])
     ) {
       setIsMisstype(false);
       setCurrentIndex(currentIndex + 1);
+      setCount((prev) => prev + 1);
 
       if (currentIndex + 1 >= typingString.length) {
-        setCurrentIndex(0);
-        setCount(count + 1);
+        stop();
       }
     } else {
       setIsMisstype(true);
-      setMissCount(missCount + 1);
+      setMissCount((prev) => prev + 1);
       console.log(e.key.charCodeAt(0));
       console.log(typingString[currentIndex].charCodeAt(0));
     }
   };
 
   return (
-    <Typing tabIndex={0} onKeyDown={(e) => handleKeyPress(e)}>
-      <Typography color='success'>
-        {typingString.slice(0, currentIndex)}
-      </Typography>
-      {isMisstype ? (
-        <Typography color='error'>{typingString[currentIndex]}</Typography>
-      ) : (
-        <Typography color='focus'>{typingString[currentIndex]}</Typography>
-      )}
-      <Typography color='primary'>
-        {typingString.slice(currentIndex + 1, typingString.length)}
-      </Typography>
-    </Typing>
+    <>
+      <Typing tabIndex={0} onFocus={start} onKeyDown={(e) => handleKeyPress(e)}>
+        <Typography color='success'>
+          {typingString.slice(0, currentIndex)}
+        </Typography>
+        {isMisstype ? (
+          <Typography color='error'>{typingString[currentIndex]}</Typography>
+        ) : (
+          <Typography color='focus'>{typingString[currentIndex]}</Typography>
+        )}
+        <Typography color='primary'>
+          {typingString.slice(currentIndex + 1, typingString.length)}
+        </Typography>
+      </Typing>
+      <ScoringWindow time={time} success={count} miss={missCount} />
+    </>
   );
 };
 
