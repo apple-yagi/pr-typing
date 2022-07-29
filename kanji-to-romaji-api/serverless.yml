@@ -1,0 +1,20 @@
+service: kanji-to-romaji-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: ap-northeast-1
+
+functions:
+  kanji-to-romaji-api:
+    handler: handler.kanji_to_romaji
+    events:
+      - http:
+          path: convert
+          method: post
+          cors: true
+
+plugins:
+  - serverless-python-requirements
