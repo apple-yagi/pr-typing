@@ -15,12 +15,34 @@ export const TypingGame = ({ text }: Props) => {
   const [missCount, setMissCount] = useState(0);
   const [count, setCount] = useState(0);
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (!typingString) return;
+  if (!typingString) return <p>...loading</p>;
 
+  const isCoron = (key: string) =>
+    key.charCodeAt(0) === 58 &&
+    typingString[currentIndex].charCodeAt(0) === 65306;
+
+  const isNami = (key: string) =>
+    key.charCodeAt(0) === 126 &&
+    typingString[currentIndex].charCodeAt(0) === 12316;
+
+  const isKanma = (key: string) =>
+    key.charCodeAt(0) === 44 &&
+    typingString[currentIndex].charCodeAt(0) === 12289;
+
+  const isZenkakuPeriod = (key: string) =>
+    key.charCodeAt(0) === 46 &&
+    typingString[currentIndex].charCodeAt(0) === 12290;
+
+  const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Shift' || e.key === 'Eisu' || e.key === 'KanjiMode') return;
 
-    if (e.key === typingString[currentIndex]) {
+    if (
+      e.key === typingString[currentIndex] ||
+      isCoron(e.key) ||
+      isNami(e.key) ||
+      isKanma(e.key) ||
+      isZenkakuPeriod(e.key)
+    ) {
       setIsMisstype(false);
       setCurrentIndex(currentIndex + 1);
 
@@ -31,10 +53,10 @@ export const TypingGame = ({ text }: Props) => {
     } else {
       setIsMisstype(true);
       setMissCount(missCount + 1);
+      console.log(e.key.charCodeAt(0));
+      console.log(typingString[currentIndex].charCodeAt(0));
     }
   };
-
-  if (!typingString) return <p>...loading</p>;
 
   return (
     <Container>
