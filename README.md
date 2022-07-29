@@ -42,7 +42,7 @@
 - [kuroshiro](https://kuroshiro.org/README.jp.html)というライブラリを用いて、ブラウザ上でローマ字変換しようとしましたが、dictionaryがなくて断念しました
 - [この記事](https://developermemo-blog.herokuapp.com/webapp-dev/155/)を参考に、既存のAPI経由でローマ字変換しようとしましたが、CORSに阻まれて断念しました
 
-はじめは既存のライブラリやAPIを使用してやろうとしてましたが、なかなかうまくいかなかったので、APIを建てました。
+はじめは既存のライブラリやAPIを使用してやろうとしてましたが、なかなかうまくいかなかったので、[API](https://github.com/apple-yagi/pr-typing/tree/main/kanji-to-romaji-api)を建てました。
 
 ## Finally 👋
 
