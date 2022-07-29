@@ -197,8 +197,11 @@ export type 企業詳細情報 = {
 };
 export type プレスリリース情報 = {
   company_name: string;
+  company_id: number;
+  release_id: number;
   title: string;
   subtitle: string;
+  url: string;
   lead_paragraph: string;
   body: string;
   main_image: string;

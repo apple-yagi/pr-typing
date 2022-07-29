@@ -59,48 +59,21 @@ export const TypingGame = ({ text }: Props) => {
   };
 
   return (
-    <Container>
-      <Title>PR Typing ⌨️</Title>
-      <Typography
-        as='p'
-        size='lg'
-        css={{
-          marginBottom: 24,
-          textAlign: 'center',
-        }}
-      >
-        プレスリリースをクリックするとゲームを開始します
+    <Typing tabIndex={0} onKeyDown={(e) => handleKeyPress(e)}>
+      <Typography color='success'>
+        {typingString.slice(0, currentIndex)}
       </Typography>
-      <Typing tabIndex={0} onKeyDown={(e) => handleKeyPress(e)}>
-        <Typography color='success'>
-          {typingString.slice(0, currentIndex)}
-        </Typography>
-        {isMisstype ? (
-          <Typography color='error'>{typingString[currentIndex]}</Typography>
-        ) : (
-          <Typography color='focus'>{typingString[currentIndex]}</Typography>
-        )}
-        <Typography color='primary'>
-          {typingString.slice(currentIndex + 1, typingString.length)}
-        </Typography>
-      </Typing>
-    </Container>
+      {isMisstype ? (
+        <Typography color='error'>{typingString[currentIndex]}</Typography>
+      ) : (
+        <Typography color='focus'>{typingString[currentIndex]}</Typography>
+      )}
+      <Typography color='primary'>
+        {typingString.slice(currentIndex + 1, typingString.length)}
+      </Typography>
+    </Typing>
   );
 };
-
-const Container = styled('div', {
-  maxWidth: 1024,
-  margin: 'auto',
-  padding: '30px 20px',
-});
-
-const Title = styled('h1', {
-  marginBottom: '40px',
-  fontSize: 60,
-  fontWeight: 'bold',
-  color: '$primaryBlue',
-  textAlign: 'center',
-});
 
 const Typing = styled('div', {
   padding: 24,
