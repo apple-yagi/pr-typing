@@ -7,11 +7,11 @@ export const ListItem = styled('li', {
   padding: 20,
   borderRadius: 20,
   background: '#e0e0e0',
-  boxShadow: '9px 9px 18px #bebebe, -9px -9px 18px #ffffff',
+  boxShadow: '9px 9px 18px #c8c9cc, -9px -9px 18px #ffffff',
   cursor: 'pointer',
 
   '&:hover': {
     background: '#e0e0e0',
-    boxShadow: 'inset 9px 9px 18px #bebebe, inset -9px -9px 18px #ffffff',
+    boxShadow: 'inset 9px 9px 18px #c8c9cc, inset -9px -9px 18px #ffffff',
   },
 });
