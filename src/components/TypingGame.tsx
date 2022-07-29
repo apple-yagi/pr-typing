@@ -33,6 +33,12 @@ export const TypingGame = ({ text }: Props) => {
     key.charCodeAt(0) === 46 &&
     typingString[currentIndex].charCodeAt(0) === 12290;
 
+  const isZenkakuKakko = (key: string) =>
+    (key.charCodeAt(0) === 123 &&
+      typingString[currentIndex].charCodeAt(0) === 12304) ||
+    (key.charCodeAt(0) === 125 &&
+      typingString[currentIndex].charCodeAt(0) === 12305);
+
   const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Shift' || e.key === 'Eisu' || e.key === 'KanjiMode') return;
 
@@ -41,7 +47,8 @@ export const TypingGame = ({ text }: Props) => {
       isCoron(e.key) ||
       isNami(e.key) ||
       isKanma(e.key) ||
-      isZenkakuPeriod(e.key)
+      isZenkakuPeriod(e.key) ||
+      isZenkakuKakko(e.key)
     ) {
       setIsMisstype(false);
       setCurrentIndex(currentIndex + 1);

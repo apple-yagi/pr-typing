@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useGetReleasesQuery } from './api/prtimesHackthonApi';
 import { TypingGame } from './components/TypingGame';
+import { Button } from './components/ui/Button';
 import { ListItem } from './components/ui/ListItem';
 import { Typography } from './components/ui/Typography';
 import { styled } from './stitches.config';
@@ -22,10 +23,23 @@ function App() {
       <Title>PR Typing ⌨️</Title>
       {body ? (
         <>
-          <button type='button' onClick={() => setBody('')}>
+          <Button
+            css={{
+              margin: '20px auto 40px',
+            }}
+            type='button'
+            onClick={() => setBody('')}
+          >
             Back
-          </button>
-          <TypingGame text={convertPressReleaseBody(data[0].body)} />
+          </Button>
+          <Typography
+            as='p'
+            size='lg'
+            css={{ textAlign: 'center', marginBottom: 40 }}
+          >
+            下のElementをクリックするとゲームが開始します
+          </Typography>
+          <TypingGame text={convertPressReleaseBody(body)} />
         </>
       ) : (
         <>
@@ -58,6 +72,9 @@ function App() {
 
 const Container = styled('div', {
   maxWidth: 1024,
+  display: 'flex',
+  alignContent: 'center',
+  flexDirection: 'column',
   margin: 'auto',
   padding: '30px 20px',
 });

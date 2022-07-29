@@ -6,12 +6,12 @@ export const ListItem = styled('li', {
   gap: 16,
   padding: 20,
   borderRadius: 20,
-  background: '#e0e0e0',
-  boxShadow: '9px 9px 18px #c8c9cc, -9px -9px 18px #ffffff',
+  background: '#EBECF0',
+  boxShadow: '12px 12px 24px #b7b8bb, -12px -12px 24px #ffffff',
   cursor: 'pointer',
 
   '&:hover': {
-    background: '#e0e0e0',
-    boxShadow: 'inset 9px 9px 18px #c8c9cc, inset -9px -9px 18px #ffffff',
+    background: 'linear-gradient(145deg, #d4d4d8, #fbfdff)',
+    boxShadow: '12px 12px 24px #b7b8bb, -12px -12px 24px #ffffff',
   },
 });
