@@ -1,0 +1,17 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "xo",
+    "xo-react",
+    "plugin:react/jsx-runtime",
+    "prettier"
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "react/function-component-definition": "off"
+  }
+}
