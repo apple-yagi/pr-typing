@@ -1,15 +1,23 @@
+import { useRomajiText } from '@/hooks/useRomajiText';
 import { styled } from '@/stitches.config';
 import { KeyboardEvent, useState } from 'react';
 import { Typography } from './ui/Typography';
 
-export const TypingGame = () => {
-  const typingString = 'Hello World!';
+type Props = {
+  text: string;
+};
+
+export const TypingGame = ({ text }: Props) => {
+  const typingString = useRomajiText(text);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMisstype, setIsMisstype] = useState(false);
   const [missCount, setMissCount] = useState(0);
   const [count, setCount] = useState(0);
 
   const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (!typingString) return;
+
     if (e.key === 'Shift' || e.key === 'Eisu' || e.key === 'KanjiMode') return;
 
     if (e.key === typingString[currentIndex]) {
@@ -25,6 +33,8 @@ export const TypingGame = () => {
       setMissCount(missCount + 1);
     }
   };
+
+  if (!typingString) return <p>...loading</p>;
 
   return (
     <Container>
