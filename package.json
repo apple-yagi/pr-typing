@@ -9,14 +9,18 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "yarn lint --fix",
-    "format": "prettier --write src/**/*.{ts,tsx}"
+    "format": "prettier --write src/**/*.{ts,tsx}",
+    "codegen": "sed -i -e 's/\"type\":.*\"/\"type\": \"commonjs\"/' package.json && npx @rtk-query/codegen-openapi openapi-config.ts && sed -i -e 's/\"type\":.*\"/\"type\": \"module\"/' package.json && rm package.json-e"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "@stitches/react": "^1.2.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.2"
   },
   "devDependencies": {
+    "@rtk-query/codegen-openapi": "1.0.0-alpha.1",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/parser": "^5.31.0",
@@ -28,6 +32,7 @@
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
     "vite-tsconfig-paths": "^3.5.0"

@@ -1,10 +1,21 @@
+import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { prtimesHackthonApi } from './api/prtimesHackthonApi';
 import App from './App';
 import './styles/reset.css';
 
+export const store = configureStore({
+  reducer: {
+    [prtimesHackthonApi.reducerPath]: prtimesHackthonApi.reducer,
+  },
+});
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );
